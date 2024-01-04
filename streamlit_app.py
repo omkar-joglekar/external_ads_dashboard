@@ -73,7 +73,7 @@ hide_table_row_index = """
            </style>
             """
 
-df['Date'] =  pd.to_datetime(df['Date'])
+#df['Date'] =  pd.to_datetime(df['Date'])
 
 
 # Concatenate the 'Date' columns from df and df2
