@@ -116,8 +116,7 @@ st.markdown(html_str, unsafe_allow_html=True)
 #selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
 
 with st.sidebar:
-    with st.echo():
-        st.write("Filters")
+            st.write("Filters")
  
 st.subheader('header')
 st.table(df)
