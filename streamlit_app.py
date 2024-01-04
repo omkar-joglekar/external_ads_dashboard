@@ -114,13 +114,8 @@ st.markdown(html_str, unsafe_allow_html=True)
 
 #options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 #selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
-
-
-
-      
-       
-           st.subheader('Top Team 1 Agents')
-           st.table(df)
+st.subheader('header')
+st.table(df)
         
    
         
