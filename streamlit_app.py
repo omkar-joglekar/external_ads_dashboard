@@ -61,7 +61,7 @@ df=pd.DataFrame(rows)
 df.columns += 1
 #df.index = df.index + 1
 #df.insert(0, "Rank", df.index)
-#df.columns = ["Rank","Agent Name", "Funded", "Date"]
+df.columns = ["Lead_created_date","Total Leads", "Total Opps", "Verified Leads"]
 #df['Funded'] = df['Funded'].astype(int)
 
 
@@ -114,6 +114,8 @@ st.markdown(html_str, unsafe_allow_html=True)
 
 #options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 #selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
+
+st.sidebar('Filters:')
 st.subheader('header')
 st.table(df)
         
