@@ -61,7 +61,7 @@ st.markdown(html_str, unsafe_allow_html=True)
 
 with st.sidebar:
             st.write("Filters")
-            lead_source_options = list(df["Lead source"].unique()) + ["ALL"] 
+            lead_source_options = list(sorted(df["Lead source"].unique())) + ["ALL"] 
             lead_source_filter = st.radio("Select Lead Source:", lead_source_options, index=len(lead_source_options)-1)
 
             start_date = st.date_input("Select Start Date:")
