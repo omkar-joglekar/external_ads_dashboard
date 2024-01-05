@@ -71,12 +71,12 @@ with st.sidebar:
 if lead_source_filter == "ALL":
     # Execute the SQL query to get data for all lead sources
     query_all_lead_sources = '''
-        select lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
-                  from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
-                  ('FACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') 
-                   group by 1,2
-                   order by 2;
-                   '''
+                       select lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
+                       from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
+                       ('FACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') 
+                       group by 1
+                       order by 1;
+                       '''
     rows_all_lead_sources = run_query(query_all_lead_sources)
     filtered_df = pd.DataFrame(rows_all_lead_sources)
 else:
