@@ -84,8 +84,8 @@ else:
     filtered_df = df[(df["Lead source"] == lead_source_filter) & 
                      (df["Lead Created Date"] >= start_date) & 
                      (df["Lead Created Date"] <= end_date)]
+    filtered_df = filtered_df.drop(columns=["Lead source"])
 
-filtered_df = filtered_df.drop(columns=["Lead source"])
 
 # Calculate grand totals and append to the DataFrame
 grand_totals = filtered_df.sum(numeric_only=True).to_frame().T
