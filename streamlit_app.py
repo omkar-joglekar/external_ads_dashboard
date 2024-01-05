@@ -37,16 +37,15 @@ df.columns += 1
 df.columns = ["Lead source","Lead Created Date","Total Leads", "Total Opps", "Verified Leads"]
 
 
-hide_table_row_index = 
-        """
-            <style>
-                thead tr th:first-child {display:none}
-                tbody th {display:none}
-                table {
-                        text-align: center;
-                }
-            </style>
-        """
+hide_table_row_index = """
+                            <style>
+                                    thead tr th:first-child {display:none}
+                                    tbody th {display:none}
+                                    table {
+                                        text-align: center;
+                                    }
+                            </style>
+                       """
 
 # HTML string for the title
 html_str = f"""
