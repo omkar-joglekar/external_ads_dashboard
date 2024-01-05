@@ -73,7 +73,7 @@ filtered_df = filtered_df.drop(columns=["Lead source"])
 # Display the filtered DataFrame
 st.subheader('header')
 st.table(filtered_df)
-
+st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 
 
