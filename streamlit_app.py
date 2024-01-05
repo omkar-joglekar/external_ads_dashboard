@@ -27,7 +27,7 @@ def run_query(query):
 #Queries
 rows = run_query('''select lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
                   from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
-                  ('FACEBOOK', 'GOOGLE', 'FACEBOOKSPRING', 'GOOGLEPMAX', 'TIKTOK', 'GOOGLE BRANDED') 
+                  ('FACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') 
                    group by 1,2
                    order by 2;''')
                   
