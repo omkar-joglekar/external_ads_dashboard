@@ -70,6 +70,13 @@ filtered_df = df[(df["Lead source"] == lead_source_filter) &
                  (df["Lead Created Date"] <= end_date)]
 
 filtered_df = filtered_df.drop(columns=["Lead source"])
+
+# Calculate grand totals and append to the DataFrame
+grand_totals = filtered_df.sum(numeric_only=True).to_frame().T
+grand_totals["Lead Created Date"] = "Grand Total"
+filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
+
+
 # Display the filtered DataFrame
 st.subheader('header')
 st.table(filtered_df)
