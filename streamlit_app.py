@@ -25,7 +25,7 @@ def run_query(query):
         return cur.fetchall()
     
 #Queries
-rows = run_query("select lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null  and lead_source in ('FACEBOOK', 'GOOGLE', 'FACEBOOKSPRING', 'GOOGLEPMAX', 'TIKTOK', 'GOOGLE BRANDED') group by 1,2  order by 1 desc limit 100;")
+rows = run_query("select lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null  and lead_source in ('FACEBOOK', 'GOOGLE', 'FACEBOOKSPRING', 'GOOGLEPMAX', 'TIKTOK', 'GOOGLE BRANDED') group by 1,2;")
                   
 df=pd.DataFrame(rows)
 df.columns += 1
