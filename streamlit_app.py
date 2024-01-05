@@ -61,14 +61,14 @@ st.markdown(html_str, unsafe_allow_html=True)
 
 with st.sidebar:
             st.write("Filters")
-            lead_source_options = ["All"] + list(df["Lead source"].unique())
+            lead_source_options = list(df["Lead source"].unique()) + ["Select All"] 
             lead_source_filter = st.radio("Select Lead Source:", lead_source_options, index=len(lead_source_options)-1)
 
             start_date = st.date_input("Select Start Date:")
             end_date = st.date_input("Select End Date:")
 
 # Filter the DataFrame based on the selected Lead_source and date range
-if lead_source_filter == "All":
+if lead_source_filter == "Select All":
     filtered_df = df[(df["Lead Created Date"] >= start_date) & (df["Lead Created Date"] <= end_date)]
 else:
     filtered_df = df[(df["Lead source"] == lead_source_filter) & 
