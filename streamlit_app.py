@@ -55,10 +55,10 @@ st.markdown(html_str, unsafe_allow_html=True)
 with st.sidebar:
             st.write("Filters")
 
-lead_source_filter = st.radio("Select Lead Source:", df["Lead source"].unique())
+            lead_source_filter = st.radio("Select Lead Source:", df["Lead source"].unique())
 
-    # Add a radio button for Lead_created_date filter
-lead_created_date_filter = st.radio("Select Lead Created Date:", df["Lead Created Date"].unique())
+             # Add a radio button for Lead_created_date filter
+            lead_created_date_filter = st.radio("Select Lead Created Date:", df["Lead Created Date"].unique())
 
 # Filter the DataFrame based on the selected Lead_source and Lead_created_date
 filtered_df = df[(df["Lead source"] == lead_source_filter) & (df["Lead Created Date"] == lead_created_date_filter)]
