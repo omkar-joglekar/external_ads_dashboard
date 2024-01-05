@@ -91,7 +91,7 @@ else:
                      (df["Lead Created Date"] <= end_date)]
     filtered_df = filtered_df.drop(columns=["Lead source"])
 
-
+filtered_df["Lead Created Date"] = pd.to_datetime(filtered_df["Lead Created Date"]).dt.strftime('%B %d, %Y')
 # Calculate grand totals and append to the DataFrame
 grand_totals = filtered_df.sum(numeric_only=True).to_frame().T
 grand_totals["Lead Created Date"] = "Grand Total"
