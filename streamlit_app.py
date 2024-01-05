@@ -57,11 +57,13 @@ with st.sidebar:
 
             lead_source_filter = st.radio("Select Lead Source:", df["Lead source"].unique())
 
-             # Add a radio button for Lead_created_date filter
-            lead_created_date_filter = st.radio("Select Lead Created Date:", df["Lead Created Date"].unique())
+             start_date = st.date_input("Select Start Date:")
+             end_date = st.date_input("Select End Date:")
 
-# Filter the DataFrame based on the selected Lead_source and Lead_created_date
-filtered_df = df[(df["Lead source"] == lead_source_filter) & (df["Lead Created Date"] == lead_created_date_filter)]
+# Filter the DataFrame based on the selected Lead_source and date range
+filtered_df = df[(df["Lead source"] == lead_source_filter) & 
+                 (df["Lead Created Date"] >= start_date) & 
+                 (df["Lead Created Date"] <= end_date)]
 
 # Display the filtered DataFrame
 st.subheader('header')
