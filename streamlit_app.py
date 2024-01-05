@@ -65,6 +65,7 @@ filtered_df = df[(df["Lead source"] == lead_source_filter) &
                  (df["Lead Created Date"] >= start_date) & 
                  (df["Lead Created Date"] <= end_date)]
 
+filtered_df = filtered_df.drop(columns=["Lead source"])
 # Display the filtered DataFrame
 st.subheader('header')
 st.table(filtered_df)
