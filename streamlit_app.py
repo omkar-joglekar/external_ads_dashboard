@@ -83,7 +83,7 @@ if lead_source_filter == "ALL":
     filtered_df.columns = ["Lead Created Date","Total Leads", "Total Opps", "Verified Leads"]
     filtered_df = filtered_df[(filtered_df["Lead Created Date"] >= start_date) & 
                      (filtered_df["Lead Created Date"] <= end_date)]
-    filtered_df = filtered_df.drop(columns=["Lead source"])
+    #filtered_df = filtered_df.drop(columns=["Lead source"])
 else:
     # Filter the existing DataFrame based on the date range and selected Lead source
     filtered_df = df[(df["Lead source"] == lead_source_filter) & 
