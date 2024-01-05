@@ -25,7 +25,7 @@ def run_query(query):
         return cur.fetchall()
     
 #Queries
-rows = run_query("select lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in ('FACEBOOK','GOOGLE') group by 1,2  order by 1 desc limit 100;")
+rows = run_query("select lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null  group by 1,2  order by 1 desc limit 100;")
                   
 df=pd.DataFrame(rows)
 df.columns += 1
@@ -57,8 +57,8 @@ with st.sidebar:
 
             lead_source_filter = st.radio("Select Lead Source:", df["Lead source"].unique())
 
-             start_date = st.date_input("Select Start Date:")
-             end_date = st.date_input("Select End Date:")
+            start_date = st.date_input("Select Start Date:")
+            end_date = st.date_input("Select End Date:")
 
 # Filter the DataFrame based on the selected Lead_source and date range
 filtered_df = df[(df["Lead source"] == lead_source_filter) & 
