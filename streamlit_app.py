@@ -68,7 +68,7 @@ with st.sidebar:
             end_date = st.date_input("Select End Date:")
 
 # Filter the DataFrame based on the selected Lead_source and date range
-if lead_source_filter == "ALL":
+if lead_source_filter == "All":
     filtered_df = df[(df["Lead Created Date"] >= start_date) & (df["Lead Created Date"] <= end_date)]
 else:
     filtered_df = df[(df["Lead source"] == lead_source_filter) & 
