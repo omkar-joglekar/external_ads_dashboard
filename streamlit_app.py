@@ -1,44 +1,47 @@
 # streamlit_app.py
 
-import streamlit as st
 import snowflake.connector
+import streamlit as st
 import pandas as pd
-import pytz
-import datetime as dt
-from datetime import datetime
-from streamlit_autorefresh import st_autorefresh
 
-
-@st.cache_resource
+# Function to fetch data from Snowflake
+@st.cache(allow_output_mutation=True)
 def init_connection():
     return snowflake.connector.connect(
         **st.secrets["snowflake"], client_session_keep_alive=True
     )
 
-conn = init_connection()
-
-
-@st.cache_data(ttl=600)
+@st.cache(allow_output_mutation=True)
 def run_query(query):
     with conn.cursor() as cur:
         cur.execute(query)
         return cur.fetchall()
-    
-#Queries
-rows = run_query("select lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in ('FACEBOOK','GOOGLE') group by 1,2  order by 1 desc limit 100;")
-                  
-df=pd.DataFrame(rows)
+
+# Streamlit app setup
+conn = init_connection()
+
+# Streamlit sidebar filters
+lead_source_filter = st.sidebar.selectbox('Select Lead Source', options=['FACEBOOK', 'GOOGLE'])
+start_date_filter = st.sidebar.date_input('Select Start Date')
+end_date_filter = st.sidebar.date_input('Select End Date')
+
+# Snowflake query with filters
+query = f"""
+    SELECT lead_source, lead_created_date, SUM(total_leads), SUM(convertedleads), SUM(verifiedleads)
+    FROM CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD
+    WHERE lead_Created_date IS NOT NULL
+        AND lead_source = '{lead_source_filter}'
+        AND lead_created_date BETWEEN '{start_date_filter}' AND '{end_date_filter}'
+    GROUP BY 1, 2
+    ORDER BY 1 DESC
+    LIMIT 100;
+"""
+
+# Fetch data based on the query
+rows = run_query(query)
+df = pd.DataFrame(rows)
 df.columns += 1
-
-df.columns = ["Lead source","Lead Created Date","Total Leads", "Total Opps", "Verified Leads"]
-
-
-hide_table_row_index = """
-            <style>
-            thead tr th:first-child {display:none}
-            tbody th {display:none}
-           </style>
-            """
+df.columns = ["Lead source", "Lead Created Date", "Total Leads", "Total Opps", "Verified Leads"]
 
 # HTML string for the title
 html_str = f"""
@@ -46,16 +49,8 @@ html_str = f"""
 """
 st.markdown(html_str, unsafe_allow_html=True)
 
-#filtered_df_1 = df[df['Date'].dt.strftime('%B %Y') == month_filter]
-
-
-#options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
-#selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
-
-with st.sidebar:
-            st.write("Filters")
- 
-st.subheader('header')
+# Display the filtered table
+st.subheader('Filtered Table')
 st.table(df)
         
    
