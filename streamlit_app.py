@@ -68,11 +68,22 @@ with st.sidebar:
             end_date = st.date_input("Select End Date:")
 
 
-filtered_df = df[(df["Lead Created Date"] >= start_date) & (df["Lead Created Date"] <= end_date)]
-
-# If a specific Lead source is selected, further filter based on the Lead source
-if lead_source_filter != "ALL":
-    filtered_df = filtered_df[filtered_df["Lead source"] == lead_source_filter]
+if lead_source_filter == "ALL":
+    # Execute the SQL query to get data for all lead sources
+    query_all_lead_sources = '''
+        select lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
+                  from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
+                  ('FACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') 
+                   group by 1,2
+                   order by 2;
+                   '''
+    rows_all_lead_sources = run_query(query_all_lead_sources)
+    filtered_df = pd.DataFrame(rows_all_lead_sources)
+else:
+    # Filter the existing DataFrame based on the date range and selected Lead source
+    filtered_df = df[(df["Lead source"] == lead_source_filter) & 
+                     (df["Lead Created Date"] >= start_date) & 
+                     (df["Lead Created Date"] <= end_date)]
 
 filtered_df = filtered_df.drop(columns=["Lead source"])
 
