@@ -38,14 +38,14 @@ df.columns = ["Lead source","Lead Created Date","Total Leads", "Total Opps", "Ve
 
 
 hide_table_row_index_and_center_align = """
-    <style>
-        thead tr th:first-child {display:none}
-        tbody th {display:none}
-        table {
-            text-align: center;
-        }
-    </style>
-"""
+                                            <style>
+                                                thead tr th:first-child {display:none}
+                                                tbody th {display:none}
+                                                table {
+                                                        text-align: center;
+                                                }
+                                            </style>
+                                        """
 
 # HTML string for the title
 html_str = f"""
