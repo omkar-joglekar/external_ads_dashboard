@@ -30,7 +30,7 @@ rows = run_query("select lead_source, lead_created_date, sum(total_leads), sum(c
 df=pd.DataFrame(rows)
 df.columns += 1
 
-df.columns = ["Lead_created_date","Total Leads", "Total Opps", "Verified Leads"]
+df.columns = ["Lead source","Lead Created Date","Total Leads", "Total Opps", "Verified Leads"]
 
 
 hide_table_row_index = """
