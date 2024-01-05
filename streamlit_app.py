@@ -79,7 +79,10 @@ filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 
 # Display the filtered DataFrame
 st.subheader('header')
-st.table(filtered_df)
+st.table(filtered_df.style.set_properties(**{'text-align': 'center'}).set_table_styles([{
+    'selector': 'th',
+    'props': [('text-align', 'center')]
+}]), use_container_width=True)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 
