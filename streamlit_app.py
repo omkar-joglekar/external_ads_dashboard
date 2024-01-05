@@ -41,6 +41,9 @@ hide_table_row_index = """
             <style>
             thead tr th:first-child {display:none}
             tbody th {display:none}
+            table {
+            text-align: center;
+        }
            </style>
             """
 
@@ -79,10 +82,7 @@ filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 
 # Display the filtered DataFrame
 st.subheader('header')
-st.table(filtered_df.style.set_properties(**{'text-align': 'center'}).set_table_styles([{
-    'selector': 'th',
-    'props': [('text-align', 'center')]
-}]))
+st.table(filtered_df)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 
