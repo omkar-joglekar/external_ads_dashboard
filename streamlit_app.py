@@ -84,7 +84,9 @@ filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 
 
 # Display the filtered DataFrame
-st.subheader('header')
+selected_lead_source = "All Lead Sources" if lead_source_filter == "ALL" else lead_source_filter
+st.subheader(f"Filtered Data - Lead Source: {selected_lead_source}")
+
 st.table(filtered_df)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
