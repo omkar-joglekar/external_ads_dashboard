@@ -42,10 +42,10 @@ hide_table_row_index = """
                             thead tr th:first-child {display:none}
                             tbody th {display:none}
                             table {
-                                    text-align: center;
+                                text-align: center;
                             }
                         </style>
-                       """
+                    """
 
 # HTML string for the title
 html_str = f"""
