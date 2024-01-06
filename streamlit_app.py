@@ -33,7 +33,7 @@ rows = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK
                   
 df=pd.DataFrame(rows)
 df.columns += 1
-df.columns = ["Lead source","Lead Created Date","Total Leads", "Total Opps", "Verified Leads"]
+df.columns = ["Lead Source","Lead Created Date","Total Leads", "Total Opps", "Verified Leads"]
 
 rows2 = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source END AS lead_source, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
                   from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
@@ -43,7 +43,7 @@ rows2 = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOO
                   
 df2=pd.DataFrame(rows2)
 df2.columns += 1
-df2.columns = ["Lead source","Total Leads", "Total Opps", "Verified Leads"]
+df2.columns = ["Lead Source","Total Leads", "Total Opps", "Verified Leads"]
 
 
 
