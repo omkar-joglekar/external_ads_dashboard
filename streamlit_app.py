@@ -25,7 +25,7 @@ def run_query(query):
         return cur.fetchall()
     
 #Queries
-rows = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
+rows = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source END AS lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
                   from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
                   ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') 
                    group by 1,2
