@@ -103,7 +103,7 @@ if lead_source_filter == "ALL":
                        order by 1 desc;
                        '''
     rows_all_lead_sources2 = run_query(query_all_lead_sources2)
-    filtered_df2 = pd.DataFrame(rows_all_lead_sources)
+    filtered_df2 = pd.DataFrame(rows_all_lead_sources2)
     filtered_df2.columns += 1
     filtered_df2.columns = ["Lead Source", "Lead Created Date", "Total Leads", "Total Opps", "Verified Leads"]
     filtered_df2 = filtered_df2[(filtered_df2["Lead Created Date"] >= start_date) & 
