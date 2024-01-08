@@ -103,7 +103,7 @@ if lead_source_filter == "ALL":
                        from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
                        ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') and lead_created_date BETWEEN %s AND %s
                        group by 1
-                       order by 1;
+                       order by 2 desc;
                        '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
