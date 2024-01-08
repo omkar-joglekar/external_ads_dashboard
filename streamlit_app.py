@@ -150,6 +150,15 @@ grand_totals2 = filtered_df2.sum(numeric_only=True).to_frame().T
 grand_totals2["Lead Source"] = "Grand Total"
 
 filtered_df2 = pd.concat([filtered_df2, grand_totals2], ignore_index=True)
+formatted_df2 = filtered_df2.style.format({
+    "Total Leads": "{:,.0f}",
+    "Total Opps": "{:,.0f}",
+    "Verified Leads": "{:,.0f}",
+    "Total Funded": "{:,.0f}",
+    "Total Spend": "${:,.2f}"
+})
+
+
 
 # Display the filtered DataFrame
 selected_lead_source = "All Lead Sources" if lead_source_filter == "ALL" else lead_source_filter
@@ -158,7 +167,7 @@ st.subheader(f"Lead Source: {selected_lead_source}")
 st.table(formatted_df)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
-st.table(filtered_df2)
+st.table(formatted_df2)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 
