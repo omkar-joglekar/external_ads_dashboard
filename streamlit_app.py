@@ -105,24 +105,19 @@ st.subheader(f"Lead Source: {selected_lead_source}")
 st.table(filtered_df)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
+# Create a second DataFrame without the "Lead Created Date" column
+filtered_df_2 = filtered_df.drop(columns=["Lead Created Date"])
+
+# Apply the same filters to the second DataFrame
+if lead_source_filter != "ALL":
+    filtered_df_2 = df[df["Lead source"] == lead_source_filter]
+filtered_df_2 = filtered_df_2[(filtered_df_2["Lead Created Date"] >= start_date) & 
+                               (filtered_df_2["Lead Created Date"] <= end_date)]
+
+# Display the second table with only "Lead Source" column
+st.table(filtered_df_2)
 
 
-#st.subheader('header')
-#st.table(df)
-        
-   
-        
-#Display next refresh time and logo    
-#col7, col8, col9 = st.columns([1.5,0.25,0.365])
-
-#with col7:
-#  if hours == 0:
-#    st.write(f"Next refresh in {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
-#  else:
-#    st.write(f"Next refresh in {hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
-#with col8:
-#    st.write(" ")
-#with col9:
 col1 =  st.image("logo.png")
 
 
