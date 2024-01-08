@@ -148,6 +148,9 @@ grand_totals["Lead to Opp %"] = np.where(
     grand_totals["Total Opps"] / grand_totals["Total Leads"]
 )
 
+# Convert the "Lead to Opp %" column to numeric, replacing non-numeric values with NaN
+grand_totals["Lead to Opp %"] = pd.to_numeric(grand_totals["Lead to Opp %"], errors="coerce")
+
 # Format the "Lead to Opp %" column as a percentage with two decimal places
 grand_totals["Lead to Opp %"] = grand_totals["Lead to Opp %"].apply(
     lambda x: "{:.2%}".format(x) if pd.notna(x) else ""
