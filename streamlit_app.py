@@ -138,15 +138,15 @@ filtered_df["Lead Created Date"] = pd.to_datetime(filtered_df["Lead Created Date
 # Calculate grand totals and append to the DataFrame
 grand_totals = filtered_df.sum(numeric_only=True).to_frame().T
 grand_totals["Lead Created Date"] = "Grand Total"
-grand_total_leads = filtered_df.loc[filtered_df["Lead Created Date"] == 'Grand Total', 'Total Leads'].values[0]
-grand_total_opps = filtered_df.loc[filtered_df["Lead Created Date"] == 'Grand Total', 'Total Opps'].values[0]
-grand_total_funded = filtered_df.loc[filtered_df["Lead Created Date"] == 'Grand Total', 'Total Funded'].values[0]
+grand_total_leads = filtered_df.loc[filtered_df['Lead Created Date'] == 'Grand Total', 'Total Leads'].values[0]
+grand_total_opps = filtered_df.loc[filtered_df['Lead Created Date'] == 'Grand Total', 'Total Opps'].values[0]
+grand_total_funded = filtered_df.loc[filtered_df['Lead Created Date'] == 'Grand Total', 'Total Funded'].values[0]
 
 lead_to_opp_percentage = (grand_total_opps / grand_total_leads) * 100 if grand_total_leads != 0 else 0
 lead_to_funded_percentage = (grand_total_funded / grand_total_leads) * 100 if grand_total_leads != 0 else 0
 
-filtered_df.loc[filtered_df["Lead Created Date"] == 'Grand Total', 'Lead to Opp %'] = lead_to_opp_percentage
-filtered_df.loc[filtered_df["Lead Created Date"] == 'Grand Total', 'Lead to Funded %'] = lead_to_funded_percentage
+filtered_df.loc[filtered_df['Lead Created Date'] == 'Grand Total', 'Lead to Opp %'] = lead_to_opp_percentage
+filtered_df.loc[filtered_df['Lead Created Date'] == 'Grand Total', 'Lead to Funded %'] = lead_to_funded_percentage
 
 filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 # Replace NaN values with blanks in the "Cost" column
