@@ -142,6 +142,10 @@ grand_totals = filtered_df.sum(numeric_only=True).to_frame().T
 grand_totals["Lead Created Date"] = "Grand Total"
 filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 
+grand_totals2 = filtered_df2.sum(numeric_only=True).to_frame().T
+grand_totals2["Lead Source"] = "Grand Total"
+filtered_df2 = pd.concat([filtered_df2, grand_totals2], ignore_index=True)
+
 
 # Display the filtered DataFrame
 selected_lead_source = "All Lead Sources" if lead_source_filter == "ALL" else lead_source_filter
