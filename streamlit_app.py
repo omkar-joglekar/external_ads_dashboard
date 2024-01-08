@@ -140,7 +140,8 @@ formatted_df = filtered_df.style.format({
     "Total Leads": "{:,.0f}",
     "Total Opps": "{:,.0f}",
     "Verified Leads": "{:,.0f}",
-    "Cost": "${:,.2f}"
+    "Total Funded": "{:,.0f}",
+    "Total Spend": "${:,.2f}"
 })
 
 
