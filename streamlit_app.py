@@ -104,10 +104,7 @@ else:
                      (df["Lead Created Date"] >= start_date) & 
                      (df["Lead Created Date"] <= end_date)]
     filtered_df = filtered_df.drop(columns=["Lead source"])
- # & 
- #                     (df2["Lead Created Date"] >= start_date) & 
- #                    (df2["Lead Created Date"] <= end_date)]
-    #filtered_df2 = filtered_df2.drop(columns=["Lead Created Date"])
+
     query_all_lead_sources2 = '''
                        select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source END AS lead_source, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
                        from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
@@ -145,23 +142,6 @@ st.table(filtered_df2)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 
-
-#st.subheader('header')
-#st.table(df)
-        
-   
-        
-#Display next refresh time and logo    
-#col7, col8, col9 = st.columns([1.5,0.25,0.365])
-
-#with col7:
-#  if hours == 0:
-#    st.write(f"Next refresh in {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
-#  else:
-#    st.write(f"Next refresh in {hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
-#with col8:
-#    st.write(" ")
-#with col9:
 col1 =  st.image("logo.png")
 
 
