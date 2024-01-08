@@ -183,7 +183,7 @@ st.subheader(f"Lead Source: {selected_lead_source}")
 st.dataframe(formatted_df, width=None, height=None)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
-st.table(formatted_df2)
+st.dataframe(formatted_df2)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 
