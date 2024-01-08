@@ -168,9 +168,9 @@ formatted_df2 = filtered_df2.style.format({
     "Total Leads": "{:,.0f}",
     "Verified Leads": "{:,.0f}",
     "Total Opps": "{:,.0f}",
-    "Lead to Opp %": '{:,.2%}',
+    #"Lead to Opp %": '{:,.2%}',
     "Total Funded": "{:,.0f}",
-    "Lead to Funded %": '{:,.2%}',
+    #"Lead to Funded %": '{:,.2%}',
     "Total Spend": "${:,.2f}"
 })
 
