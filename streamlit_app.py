@@ -166,8 +166,10 @@ filtered_df2["Total Spend"] = filtered_df2["Total Spend"].fillna(0)
 formatted_df2 = filtered_df2.style.format({
     "Total Leads": "{:,.0f}",
     "Total Opps": "{:,.0f}",
+    "Lead to Opp %": "{:,.2%}",
     "Verified Leads": "{:,.0f}",
     "Total Funded": "{:,.0f}",
+    "Lead to Funded %": "{:,.2%}",
     "Total Spend": "${:,.2f}"
 })
 
