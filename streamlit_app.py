@@ -39,7 +39,7 @@ rows = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK
                   
 df=pd.DataFrame(rows)
 df.columns += 1
-df.columns = ["Lead source","Lead Created Date","Total Leads", "Verified Leads", "Total Opps", "Total Funded", "Total Spend"]
+df.columns = ["Lead source","Lead Created Date","Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %", "Total Funded", "Lead to Funded %","Total Spend"]
 
 hide_table_row_index = """
                         <style>
