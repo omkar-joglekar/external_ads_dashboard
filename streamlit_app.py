@@ -38,19 +38,6 @@ df=pd.DataFrame(rows)
 df.columns += 1
 df.columns = ["Lead source","Lead Created Date","Total Leads", "Total Opps", "Verified Leads"]
 
-rows2 = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source END AS lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
-                  from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
-                  ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') 
-                   group by 1,2
-                   order by 1 desc;''')
-                  
-df2=pd.DataFrame(rows2)
-df2.columns += 1
-df2.columns = ["Lead source","Lead Created Date","Total Leads", "Total Opps", "Verified Leads"]
-
-
-
-
 hide_table_row_index = """
                         <style>
                             thead tr th:first-child {display:none}
