@@ -46,9 +46,6 @@ hide_table_row_index = """
                         <style>
                             thead tr th:first-child {display:none}
                             tbody th {display:none}
-                            table {
-                                text-align: center;
-                            }
                         </style>
                     """
 
@@ -182,10 +179,10 @@ formatted_df2 = filtered_df2.style.format({
 selected_lead_source = "All Lead Sources" if lead_source_filter == "ALL" else lead_source_filter
 st.subheader(f"Lead Source: {selected_lead_source}")
 
-st.dataframe(formatted_df, width=1200)
+st.table(formatted_df)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
-st.dataframe(formatted_df2, width=1200)
+st.table(formatted_df2)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 
