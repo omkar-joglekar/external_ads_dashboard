@@ -142,7 +142,7 @@ formatted_df = filtered_df.style.format({
     "Verified Leads": "{:,.0f}",
     "Total Funded": "{:,.0f}",
     "Total Spend": "${:,.2f}"
-})
+}).highlight_na(null_color='')
 
 
 
@@ -156,7 +156,7 @@ formatted_df2 = filtered_df2.style.format({
     "Verified Leads": "{:,.0f}",
     "Total Funded": "{:,.0f}",
     "Total Spend": "${:,.2f}"
-})
+}).highlight_na(null_color='')
 
 
 
