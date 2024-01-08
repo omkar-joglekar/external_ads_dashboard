@@ -180,10 +180,10 @@ formatted_df2 = filtered_df2.style.format({
 selected_lead_source = "All Lead Sources" if lead_source_filter == "ALL" else lead_source_filter
 st.subheader(f"Lead Source: {selected_lead_source}")
 
-st.dataframe(formatted_df, width=None, height=None)
+st.dataframe(formatted_df, width=1000, height=None)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
-st.dataframe(formatted_df2)
+st.dataframe(formatted_df2, width=1000)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 
