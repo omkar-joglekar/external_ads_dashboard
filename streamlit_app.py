@@ -111,7 +111,7 @@ if lead_source_filter == "ALL":
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
     filtered_df2 = pd.DataFrame(rows_all_lead_sources2)
     filtered_df2.columns += 1
-    filtered_df2.columns = ["Lead Source", "Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %","Total Funded", ,"Lead to Funded %","Total Spend"]
+    filtered_df2.columns = ["Lead Source", "Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %","Total Funded", "Lead to Funded %","Total Spend"]
 
 else:
     # Filter the existing DataFrame based on the date range and selected Lead source
