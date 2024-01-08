@@ -133,10 +133,26 @@ filtered_df["Lead Created Date"] = pd.to_datetime(filtered_df["Lead Created Date
 # Calculate grand totals and append to the DataFrame
 grand_totals = filtered_df.sum(numeric_only=True).to_frame().T
 grand_totals["Lead Created Date"] = "Grand Total"
+
+#FORMATTING
+grand_totals["Total Leads"] = grand_totals["Total Leads"].astype(int)  
+grand_totals["Total Opps"] = grand_totals["Total Opps"].astype(int)  
+grand_totals["Verified Leads"] = grand_totals["Verified Leads"].astype(int)
+grand_totals["Total Funded"] = grand_totals["Total Funded"].astype(int) 
+grand_totals["Total Spend"] = grand_totals["Cost"].map("${:.2f}".format)  
+
 filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 
 grand_totals2 = filtered_df2.sum(numeric_only=True).to_frame().T
 grand_totals2["Lead Source"] = "Grand Total"
+
+#FORMATTING
+grand_totals2["Total Leads"] = grand_totals2["Total Leads"].astype(int) 
+grand_totals2["Total Opps"] = grand_totals2["Total Opps"].astype(int)  
+grand_totals2["Verified Leads"] = grand_totals2["Verified Leads"].astype(int) 
+grand_totals2["Total Funded"] = grand_totals2["Total Funded"].astype(int) 
+grand_totals2["Total Spend"] = grand_totals2["Total Spend"].map("${:.2f}".format)  
+
 filtered_df2 = pd.concat([filtered_df2, grand_totals2], ignore_index=True)
 
 
