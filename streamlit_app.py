@@ -96,18 +96,18 @@ if lead_source_filter == "ALL":
                      (filtered_df["Lead Created Date"] <= end_date)]
     #filtered_df = filtered_df.drop(columns=["Lead source"])
     query_all_lead_sources2 = '''
-                       select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source END AS lead_source, lead_created_date, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
+                       select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source END AS lead_source, sum(total_leads), sum(convertedleads), sum(verifiedleads) 
                        from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
-                       ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') 
-                       group by 1,2
-                       order by 2;
+                       ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') and lead_created_date BETWEEN :start_date AND :end_date
+                       group by 1
+                       order by 1;
                        '''
     rows_all_lead_sources2 = run_query(query_all_lead_sources2)
     filtered_df2 = pd.DataFrame(rows_all_lead_sources2)
     filtered_df2.columns += 1
-    filtered_df2.columns = ["Lead Source", "Lead Created Date", "Total Leads", "Total Opps", "Verified Leads"]
-    filtered_df2 = filtered_df2[(filtered_df2["Lead Created Date"] >= start_date) & 
-                     (filtered_df2["Lead Created Date"] <= end_date)]
+    filtered_df2.columns = ["Lead Source", "Total Leads", "Total Opps", "Verified Leads"]
+    #filtered_df2 = filtered_df2[(filtered_df2["Lead Created Date"] >= start_date) & 
+                     #(filtered_df2["Lead Created Date"] <= end_date)]
     #filtered_df2 = filtered_df2.drop(columns=["Lead Created Date"])
 
 else:
