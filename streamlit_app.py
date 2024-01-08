@@ -153,7 +153,7 @@ grand_totals2["Lead Source"] = "Grand Total"
 
 filtered_df2 = pd.concat([filtered_df2, grand_totals2], ignore_index=True)
 filtered_df2["Total Spend"] = pd.to_numeric(filtered_df2["Total Spend"], errors='coerce')
-filtered_df2["Total Spend"] = filtered_df2["Total Spend"].fillna('')
+#filtered_df2["Total Spend"] = filtered_df2["Total Spend"].fillna('')
 formatted_df2 = filtered_df2.style.format({
     "Total Leads": "{:,.0f}",
     "Total Opps": "{:,.0f}",
