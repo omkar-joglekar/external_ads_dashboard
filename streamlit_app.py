@@ -65,8 +65,15 @@ with st.sidebar:
             lead_source_options = list(sorted(df["Lead source"].unique())) + ["ALL"] 
             
 
-            start_date = st.date_input("Select Start Date:")
-            end_date = st.date_input("Select End Date:")
+            # Get the first day of the current month
+            default_start_date = dt.datetime.today().replace(day=1)
+
+            # Get yesterday's date
+            default_end_date = dt.datetime.today() - timedelta(days=1)
+
+            # Display the date inputs with default values
+            start_date = st.date_input("Select Start Date:", value=default_start_date)
+            end_date = st.date_input("Select End Date:", value=default_end_date)
             lead_source_filter = st.radio("Select Lead Source:", lead_source_options, index=len(lead_source_options)-1)
 
 if lead_source_filter == "ALL":
