@@ -111,8 +111,8 @@ filtered_df_2 = filtered_df.drop(columns=["Lead Created Date"])
 # Apply the same filters to the second DataFrame
 if lead_source_filter != "ALL":
     filtered_df_2 = df[df["Lead source"] == lead_source_filter]
-filtered_df_2 = filtered_df_2[(filtered_df_2["Lead Created Date"] >= start_date) & 
-                               (filtered_df_2["Lead Created Date"] <= end_date)]
+filtered_df_2 = filtered_df_2[(df["Lead Created Date"] >= start_date) & 
+                               (df["Lead Created Date"] <= end_date)]
 
 # Display the second table with only "Lead Source" column
 st.table(filtered_df_2)
