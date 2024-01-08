@@ -5,6 +5,7 @@ import snowflake.connector
 import pandas as pd
 import pytz
 import datetime as dt
+import numpy as np
 from datetime import datetime
 from datetime import timedelta
 from streamlit_autorefresh import st_autorefresh
@@ -140,6 +141,17 @@ filtered_df["Lead Created Date"] = pd.to_datetime(filtered_df["Lead Created Date
 # Calculate grand totals and append to the DataFrame
 grand_totals = filtered_df.sum(numeric_only=True).to_frame().T
 grand_totals["Lead Created Date"] = "Grand Total"
+
+grand_totals["Lead to Opp %"] = np.where(
+    grand_totals["Total Leads"] == 0,
+    np.nan,  # Avoid division by zero
+    grand_totals["Total Opps"] / grand_totals["Total Leads"]
+)
+
+# Format the "Lead to Opp %" column as a percentage with two decimal places
+grand_totals["Lead to Opp %"] = grand_totals["Lead to Opp %"].apply(
+    lambda x: "{:.2%}".format(x) if pd.notna(x) else ""
+)
 
 filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 # Replace NaN values with blanks in the "Cost" column
