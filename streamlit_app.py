@@ -31,8 +31,7 @@ def run_query(query, params=None):
 #Queries
 rows = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source END AS lead_source, lead_created_date, sum(total_leads),  sum(verifiedleads)
                    , sum(convertedleads), NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0) * 100 AS "Lead to Opp %",
-                   sum(fundedleads), , 
-                   NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(total_leads), 0) * 100 AS "Lead to Funded %",sum(cost)
+                   sum(fundedleads),NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(total_leads), 0) * 100 AS "Lead to Funded %",sum(cost)
                   from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
                   ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') 
                    group by 1,2
