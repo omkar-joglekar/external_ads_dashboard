@@ -135,6 +135,8 @@ grand_totals = filtered_df.sum(numeric_only=True).to_frame().T
 grand_totals["Lead Created Date"] = "Grand Total"
 
 filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
+# Replace NaN values with blanks in the "Cost" column
+filtered_df["Total Spend"] = filtered_df["Total Spend"].fillna('')
 # Apply formatting to numeric columns
 formatted_df = filtered_df.style.format({
     "Total Leads": "{:,.0f}",
@@ -142,7 +144,7 @@ formatted_df = filtered_df.style.format({
     "Verified Leads": "{:,.0f}",
     "Total Funded": "{:,.0f}",
     "Total Spend": "${:,.2f}"
-}).highlight_na(null_color='')
+})
 
 
 
@@ -150,13 +152,14 @@ grand_totals2 = filtered_df2.sum(numeric_only=True).to_frame().T
 grand_totals2["Lead Source"] = "Grand Total"
 
 filtered_df2 = pd.concat([filtered_df2, grand_totals2], ignore_index=True)
+filtered_df2["Total Spend"] = filtered_df2["Total Spend"].fillna('')
 formatted_df2 = filtered_df2.style.format({
     "Total Leads": "{:,.0f}",
     "Total Opps": "{:,.0f}",
     "Verified Leads": "{:,.0f}",
     "Total Funded": "{:,.0f}",
     "Total Spend": "${:,.2f}"
-}).highlight_na(null_color='')
+})
 
 
 
