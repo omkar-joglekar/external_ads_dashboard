@@ -139,7 +139,7 @@ grand_totals["Total Leads"] = grand_totals["Total Leads"].astype(int)
 grand_totals["Total Opps"] = grand_totals["Total Opps"].astype(int)  
 grand_totals["Verified Leads"] = grand_totals["Verified Leads"].astype(int)
 grand_totals["Total Funded"] = grand_totals["Total Funded"].astype(int) 
-grand_totals["Total Spend"] = grand_totals["Cost"].map("${:.2f}".format)  
+grand_totals["Total Spend"] = grand_totals["Total Spend"].map("${:.2f}".format)  
 
 filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 
