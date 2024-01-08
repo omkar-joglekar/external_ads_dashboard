@@ -106,23 +106,20 @@ st.table(filtered_df)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 # Create a second DataFrame without the "Lead Created Date" column
-# Create a second DataFrame without the "Lead Created Date" column
 filtered_df_2 = filtered_df.drop(columns=["Lead Created Date"])
 
 # Apply the same filters to the second DataFrame
 if lead_source_filter == "ALL":
-    # For 'ALL', drop the "Lead Created Date" column
-    filtered_df_2 = filtered_df_2[(filtered_df_2["Lead Created Date"] >= start_date) & 
-                                   (filtered_df_2["Lead Created Date"] <= end_date)]
+    # For 'ALL', drop the "Lead source" column as well
+    filtered_df_2 = filtered_df_2[(filtered_df["Lead Created Date"] >= start_date) & 
+                                   (filtered_df["Lead Created Date"] <= end_date)]
 else:
     # For a specific lead source, apply the filters
-    filtered_df_2 = filtered_df_2[(filtered_df_2["Lead source"] == lead_source_filter) & 
-                                   (filtered_df_2["Lead Created Date"] >= start_date) & 
-                                   (filtered_df_2["Lead Created Date"] <= end_date)]
+    filtered_df_2 = filtered_df_2[(filtered_df["Lead Created Date"] >= start_date) & 
+                                   (filtered_df["Lead Created Date"] <= end_date)]
 
 # Display the second table
 st.table(filtered_df_2)
-
 
 col1 =  st.image("logo.png")
 
