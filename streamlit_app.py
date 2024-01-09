@@ -46,7 +46,7 @@ rows = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK
                   
 df=pd.DataFrame(rows)
 df.columns += 1
-df.columns = ["Lead source","Lead Created Date","Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %", "Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CPVerifiedLeads", "CPOpps", "CPFunded"]
+df.columns = ["Lead source","Lead Created Date","Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %", "Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CP Verified Leads", "CPOpps", "CPFunded"]
 
 hide_table_row_index = """
                         <style>
@@ -103,7 +103,7 @@ if lead_source_filter == "ALL":
     rows_all_lead_sources = run_query(query_all_lead_sources)
     filtered_df = pd.DataFrame(rows_all_lead_sources)
     filtered_df.columns += 1
-    filtered_df.columns = ["Lead Created Date","Total Leads", "Verified Leads", "Total Opps","Lead to Opp %", "Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CPVerifiedLeads", "CPOpps", "CPFunded"]
+    filtered_df.columns = ["Lead Created Date","Total Leads", "Verified Leads", "Total Opps","Lead to Opp %", "Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CP Verified Leads", "CPOpps", "CPFunded"]
     filtered_df = filtered_df[(filtered_df["Lead Created Date"] >= start_date) & 
                      (filtered_df["Lead Created Date"] <= end_date)]
     #filtered_df = filtered_df.drop(columns=["Lead source"])
@@ -126,7 +126,7 @@ if lead_source_filter == "ALL":
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
     filtered_df2 = pd.DataFrame(rows_all_lead_sources2)
     filtered_df2.columns += 1
-    filtered_df2.columns = ["Lead Source", "Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %","Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CPVerifiedLeads", "CPOpps", "CPFunded"]
+    filtered_df2.columns = ["Lead Source", "Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %","Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CP Verified Leads", "CPOpps", "CPFunded"]
 
 else:
     # Filter the existing DataFrame based on the date range and selected Lead source
@@ -154,7 +154,7 @@ else:
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
     filtered_df2 = pd.DataFrame(rows_all_lead_sources2)
     filtered_df2.columns += 1
-    filtered_df2.columns = ["Lead Source", "Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %","Total Funded","Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CPVerifiedLeads", "CPOpps", "CPFunded"]
+    filtered_df2.columns = ["Lead Source", "Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %","Total Funded","Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CP Verified Leads", "CPOpps", "CPFunded"]
     filtered_df2 = filtered_df2[(filtered_df2["Lead Source"] == lead_source_filter)]
 
 filtered_df["Lead Created Date"] = pd.to_datetime(filtered_df["Lead Created Date"]).dt.strftime('%B %e, %Y')
@@ -180,7 +180,7 @@ formatted_df = filtered_df.style.format({
     "Opp to Funded %": '{:,.2%}',
     "Total Spend": "${:,.2f}",
     "CPLead": "${:,.2f}",
-    "CPVerifiedLeads": "${:,.2f}",
+    "CP Verified Leads": "${:,.2f}",
     "CPOpps": "${:,.2f}",
     "CPFunded": "${:,.2f}",
 })
@@ -206,7 +206,7 @@ formatted_df2 = filtered_df2.style.format({
     "Opp to Funded %": '{:,.2%}',
     "Total Spend": "${:,.2f}",
     "CPLead": "${:,.2f}",
-    "CPVerifiedLeads": "${:,.2f}",
+    "CP Verified Leads": "${:,.2f}",
     "CPOpps": "${:,.2f}",
     "CPFunded": "${:,.2f}",
 })
