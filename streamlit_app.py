@@ -161,8 +161,21 @@ else:
 filtered_df["Lead Created Date"] = pd.to_datetime(filtered_df["Lead Created Date"]).dt.strftime('%B %e, %Y')
 #filtered_df2["Lead Created Date"] = pd.to_datetime(filtered_df2["Lead Created Date"]).dt.strftime('%B %e, %Y')
 # Calculate grand totals and append to the DataFrame
-grand_totals = filtered_df.sum(numeric_only=True).to_frame().T
-grand_totals["Lead Created Date"] = "Grand Total"
+grand_totals = pd.DataFrame({
+    "Lead Created Date": ["Grand Total"],
+    "Total Leads": filtered_df["Total Leads"].sum(),
+    "Verified Leads": filtered_df["Verified Leads"].sum(),
+    "Total Opps": filtered_df["Total Opps"].sum(),
+    "Lead to Opp %": filtered_df["Total Opps"].sum() / filtered_df["Total Leads"].sum(),
+    "Total Funded": filtered_df["Total Funded"].sum(),
+    "Lead to Funded %": filtered_df["Total Funded"].sum() / filtered_df["Total Leads"].sum(),
+    "Opp to Funded %": filtered_df["Total Funded"].sum() / filtered_df["Total Opps"].sum(),
+    "Total Spend": filtered_df["Total Spend"].sum(),
+    "CPLead": filtered_df["Total Spend"].sum() / filtered_df["Total Leads"].sum(),
+    "CP Verified Leads": filtered_df["Total Spend"].sum() / filtered_df["Verified Leads"].sum(),
+    "CPOpps": filtered_df["Total Spend"].sum() / filtered_df["Total Opps"].sum(),
+    "CPFunded": filtered_df["Total Spend"].sum() / filtered_df["Total Funded"].sum(),
+})
 
 filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 # Replace NaN values with blanks in the "Cost" column
@@ -192,8 +205,21 @@ formatted_df = filtered_df.style.format({
 
 
 
-grand_totals2 = filtered_df2.sum(numeric_only=True).to_frame().T
-grand_totals2["Lead Source"] = "Grand Total"
+grand_totals2 = pd.DataFrame({
+    "Lead Source": ["Grand Total"],
+    "Total Leads": filtered_df2["Total Leads"].sum(),
+    "Verified Leads": filtered_df2["Verified Leads"].sum(),
+    "Total Opps": filtered_df2["Total Opps"].sum(),
+    "Lead to Opp %": filtered_df2["Total Opps"].sum() / filtered_df2["Total Leads"].sum(),
+    "Total Funded": filtered_df2["Total Funded"].sum(),
+    "Lead to Funded %": filtered_df2["Total Funded"].sum() / filtered_df2["Total Leads"].sum(),
+    "Opp to Funded %": filtered_df2["Total Funded"].sum() / filtered_df2["Total Opps"].sum(),
+    "Total Spend": filtered_df2["Total Spend"].sum(),
+    "CPLead": filtered_df2["Total Spend"].sum() / filtered_df2["Total Leads"].sum(),
+    "CP Verified Leads": filtered_df2["Total Spend"].sum() / filtered_df2["Verified Leads"].sum(),
+    "CPOpps": filtered_df2["Total Spend"].sum() / filtered_df2["Total Opps"].sum(),
+    "CPFunded": filtered_df2["Total Spend"].sum() / filtered_df2["Total Funded"].sum(),
+})
 
 filtered_df2 = pd.concat([filtered_df2, grand_totals2], ignore_index=True)
 #filtered_df2["Total Spend"] = pd.to_numeric(filtered_df2["Total Spend"], errors='coerce')
