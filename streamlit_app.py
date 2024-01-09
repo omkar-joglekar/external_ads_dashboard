@@ -124,7 +124,7 @@ else:
     filtered_df = filtered_df.drop(columns=["Lead source"])
 
     query_all_lead_sources2 = '''
-                       select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source END AS lead_source, sum(total_leads),  sum(verifiedleads), sum(convertedleads)
+                       select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' ELSE lead_source END AS lead_source, sum(total_leads),  sum(verifiedleads), sum(convertedleads),
                        NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Opp
                        ,sum(fundedleads),NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(total_leads), 0) AS Lead_to_Funded,
                        NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(convertedleads), 0)  AS Opp_to_Funded,
