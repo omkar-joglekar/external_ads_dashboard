@@ -158,7 +158,7 @@ formatted_df = filtered_df.style.format({
     "Lead to Opp %": '{:,.2%}',
     "Total Funded": "{:,.0f}",
     "Lead to Funded %": '{:,.2%}',
-    "Opp to Funded %",: '{:,.2%}',
+    "Opp to Funded %": '{:,.2%}',
     "Total Spend": "${:,.2f}"
 })
 
