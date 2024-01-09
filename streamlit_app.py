@@ -170,6 +170,10 @@ filtered_df["Total Spend"] = filtered_df["Total Spend"].fillna(0)
 filtered_df["Lead to Opp %"] = filtered_df["Lead to Opp %"].fillna(0)
 filtered_df["Lead to Funded %"] = filtered_df["Lead to Funded %"].fillna(0)
 filtered_df["Opp to Funded %"] = filtered_df["Opp to Funded %"].fillna(0)
+filtered_df["CPLead"] = filtered_df["CPLead"].fillna(0)
+filtered_df["CP Verified Leads"] = filtered_df["CP Verified Leads"].fillna(0)
+filtered_df["CPOpps"] = filtered_df["CPOpps"].fillna(0)
+filtered_df["CPFunded"] = filtered_df["CPFunded"].fillna(0)
 # Apply formatting to numeric columns
 formatted_df = filtered_df.style.format({
     "Total Leads": "{:,.0f}",
@@ -197,6 +201,10 @@ filtered_df2["Total Spend"] = filtered_df2["Total Spend"].fillna(0)
 filtered_df2["Lead to Opp %"] = filtered_df2["Lead to Opp %"].fillna(0)
 filtered_df2["Lead to Funded %"] = filtered_df2["Lead to Funded %"].fillna(0)
 filtered_df2["Opp to Funded %"] = filtered_df2["Opp to Funded %"].fillna(0)
+filtered_df2["CPLead"] = filtered_df2["CPLead"].fillna(0)
+filtered_df2["CP Verified Leads"] = filtered_df2["CP Verified Leads"].fillna(0)
+filtered_df2["CPOpps"] = filtered_df2["CPOpps"].fillna(0)
+filtered_df2["CPFunded"] = filtered_df2["CPFunded"].fillna(0)
 formatted_df2 = filtered_df2.style.format({
     "Total Leads": "{:,.0f}",
     "Verified Leads": "{:,.0f}",
