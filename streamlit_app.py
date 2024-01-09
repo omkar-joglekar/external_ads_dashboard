@@ -10,6 +10,7 @@ from datetime import datetime
 from datetime import timedelta
 from streamlit_autorefresh import st_autorefresh
 
+st.set_page_config(layout="wide")
 
 @st.cache_resource
 def init_connection():
