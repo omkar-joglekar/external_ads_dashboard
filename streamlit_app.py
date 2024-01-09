@@ -150,6 +150,9 @@ grand_totals["Lead Created Date"] = "Grand Total"
 filtered_df = pd.concat([filtered_df, grand_totals], ignore_index=True)
 # Replace NaN values with blanks in the "Cost" column
 filtered_df["Total Spend"] = filtered_df["Total Spend"].fillna(0)
+filtered_df["Lead to Opp %"] = filtered_df["Lead to Opp %"].fillna(0)
+filtered_df["Lead to Funded %"] = filtered_df["Lead to Funded %"].fillna(0)
+filtered_df["Opp to Funded %"] = filtered_df["Opp to Funded %"].fillna(0)
 # Apply formatting to numeric columns
 formatted_df = filtered_df.style.format({
     "Total Leads": "{:,.0f}",
