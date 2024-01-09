@@ -97,7 +97,7 @@ if lead_source_filter == "ALL":
                        NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
                        NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
                        from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
-                       ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'GOOGLE BRANDED', 'GOOGLEPMAX', 'TIKTOK') 
+                       ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK') 
                        group by 1
                        order by 1;
                        '''
