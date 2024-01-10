@@ -122,7 +122,7 @@ if lead_source_filter == "ALL":
                         CPLEAD,
                         CPVERIFIEDLEADS,
                         CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s;
                         '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
@@ -150,7 +150,7 @@ else:
                         CPLEAD,
                         CPVERIFIEDLEADS,
                         CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s;
                        '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
