@@ -89,18 +89,18 @@ if lead_source_filter == "ALL":
     # Execute the SQL query to get data for all lead sources
     query_all_lead_sources = '''
                         SELECT LEAD_CREATED_DATE,
-                        TOTAL_LEADS,
-                        VERIFIEDLEADS,
-                        TOTAL_OPPS,
+                        SUM(TOTAL_LEADS),
+                        SUM(VERIFIEDLEADS),
+                        SUM(TOTAL_OPPS),
                         LEAD_TO_OPP,
-                        TOTAL_FUNDED,
+                        SUM(TOTAL_FUNDED),
                         LEAD_TO_FUNDED,
                         OPP_TO_FUNDED,
-                        TOTAL_SPEND,
+                        SUM(TOTAL_SPEND),
                         CPLEAD,
                         CPVERIFIEDLEADS,
                         CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard ORDER BY 1;'''
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard GROUP BY 1 ORDER BY 1;'''
     rows_all_lead_sources = run_query(query_all_lead_sources)
     filtered_df = pd.DataFrame(rows_all_lead_sources)
     filtered_df.columns += 1
@@ -110,18 +110,18 @@ if lead_source_filter == "ALL":
     #filtered_df = filtered_df.drop(columns=["Lead source"])
     query_all_lead_sources2 = '''
                         SELECT LEAD_SOURCE,
-                        TOTAL_LEADS,
-                        VERIFIEDLEADS,
-                        TOTAL_OPPS,
+                        SUM(TOTAL_LEADS),
+                        SUM(VERIFIEDLEADS),
+                        SUM(TOTAL_OPPS),
                         LEAD_TO_OPP,
-                        TOTAL_FUNDED,
+                        SUM(TOTAL_FUNDED),
                         LEAD_TO_FUNDED,
                         OPP_TO_FUNDED,
-                        TOTAL_SPEND,
+                        SUM(TOTAL_SPEND),
                         CPLEAD,
                         CPVERIFIEDLEADS,
                         CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s ORDER BY 2 DESC;
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s GROUP BY 1 ORDER BY 2 DESC;
                         '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
