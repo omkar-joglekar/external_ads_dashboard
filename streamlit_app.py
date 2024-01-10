@@ -44,7 +44,7 @@ rows = run_query('''SELECT LEAD_SOURCE,
                     CPLEAD,
                     CPVERIFIEDLEADS,
                     CPOPP,
-                    CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard;''')
+                    CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard ORDER BY 2;''')
                   
 df=pd.DataFrame(rows)
 df.columns += 1
@@ -100,7 +100,7 @@ if lead_source_filter == "ALL":
                         CPLEAD,
                         CPVERIFIEDLEADS,
                         CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard;
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard ORDER BY 1;
                        '''
     rows_all_lead_sources = run_query(query_all_lead_sources)
     filtered_df = pd.DataFrame(rows_all_lead_sources)
@@ -122,7 +122,7 @@ if lead_source_filter == "ALL":
                         CPLEAD,
                         CPVERIFIEDLEADS,
                         CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s;
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s ORDER BY 2 DESC;
                         '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
@@ -150,7 +150,7 @@ else:
                         CPLEAD,
                         CPVERIFIEDLEADS,
                         CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s;
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s ORDER BY 2 DESC;
                        '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
