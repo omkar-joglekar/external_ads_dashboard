@@ -92,15 +92,15 @@ if lead_source_filter == "ALL":
                         SUM(TOTAL_LEADS),
                         SUM(VERIFIEDLEADS),
                         SUM(TOTAL_OPPS),
-                        LEAD_TO_OPP,
+                        SUM(LEAD_TO_OPP),
                         SUM(TOTAL_FUNDED),
-                        LEAD_TO_FUNDED,
-                        OPP_TO_FUNDED,
+                        SUM(LEAD_TO_FUNDED),
+                        SUM(OPP_TO_FUNDED),
                         SUM(TOTAL_SPEND),
-                        CPLEAD,
-                        CPVERIFIEDLEADS,
-                        CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard GROUP BY 1,5,7,8,10,11,12,13 ORDER BY 1;'''
+                        SUM(CPLEAD),
+                        SUM(CPVERIFIEDLEADS),
+                        SUM(CPOPP),
+                        SUM(CPFUNDED) FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard GROUP BY 1 ORDER BY 1;'''
     rows_all_lead_sources = run_query(query_all_lead_sources)
     filtered_df = pd.DataFrame(rows_all_lead_sources)
     filtered_df.columns += 1
@@ -113,15 +113,15 @@ if lead_source_filter == "ALL":
                         SUM(TOTAL_LEADS),
                         SUM(VERIFIEDLEADS),
                         SUM(TOTAL_OPPS),
-                        LEAD_TO_OPP,
+                        SUM(LEAD_TO_OPP),
                         SUM(TOTAL_FUNDED),
-                        LEAD_TO_FUNDED,
-                        OPP_TO_FUNDED,
+                        SUM(LEAD_TO_FUNDED),
+                        SUM(OPP_TO_FUNDED),
                         SUM(TOTAL_SPEND),
-                        CPLEAD,
-                        CPVERIFIEDLEADS,
-                        CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s GROUP BY 1,5,7,8,10,11,12,13 ORDER BY 2 DESC;
+                        SUM(CPLEAD),
+                        SUM(CPVERIFIEDLEADS),
+                        SUM(CPOPP),
+                        SUM(CPFUNDED) FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s GROUP BY 1 ORDER BY 2 DESC;
                         '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
