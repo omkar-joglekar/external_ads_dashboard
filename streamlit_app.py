@@ -100,8 +100,7 @@ if lead_source_filter == "ALL":
                         CPLEAD,
                         CPVERIFIEDLEADS,
                         CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard ORDER BY 1;
-                       '''
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard ORDER BY 1;'''
     rows_all_lead_sources = run_query(query_all_lead_sources)
     filtered_df = pd.DataFrame(rows_all_lead_sources)
     filtered_df.columns += 1
