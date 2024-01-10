@@ -31,7 +31,7 @@ def run_query(query, params=None):
         return cur.fetchall()
     
 #Queries
-rows = run_query('''SELECT LEAD_SOURCE,
+rows = run_query('''SELECT lead_source,
                     LEAD_CREATED_DATE,
                     TOTAL_LEADS,
                     VERIFIEDLEADS,
