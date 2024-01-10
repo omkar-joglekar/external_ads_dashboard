@@ -31,7 +31,20 @@ def run_query(query, params=None):
         return cur.fetchall()
     
 #Queries
-rows = run_query('''SELECT * FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard;''')
+rows = run_query('''SELECT LEAD_SOURCE,
+                    LEAD_CREATED_DATE,
+                    TOTAL_LEADS,
+                    VERIFIEDLEADS,
+                    TOTAL_OPPS,
+                    LEAD_TO_OPP,
+                    TOTAL_FUNDED,
+                    LEAD_TO_FUNDED,
+                    OPP_TO_FUNDED,
+                    TOTAL_SPEND,
+                    CPLEAD,
+                    CPVERIFIEDLEADS,
+                    CPOPP,
+                    CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard;''')
                   
 df=pd.DataFrame(rows)
 df.columns += 1
