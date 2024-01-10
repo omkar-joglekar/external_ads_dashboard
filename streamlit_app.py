@@ -31,19 +31,7 @@ def run_query(query, params=None):
         return cur.fetchall()
     
 #Queries
-rows = run_query('''select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' WHEN LEAD_SOURCE='SPRINGGOOGLEBRANDED' THEN 'GOOGLE BRANDED' ELSE lead_source END AS lead_source, lead_created_date, sum(total_leads),  sum(verifiedleads)
-                   , sum(convertedleads), NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Opp,
-                   sum(fundedleads),NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Funded
-                   ,NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(convertedleads), 0)  AS Opp_to_Funded,
-                   sum(cost),
-                   NULLIF(SUM(cost), 0) / NULLIF(SUM(total_leads), 0)  AS CPLead,
-                   NULLIF(SUM(cost), 0) / NULLIF(SUM(verifiedleads), 0)  AS CPVerifiedLeads,
-                   NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
-                   NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
-                  from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
-                  ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK') 
-                   group by 1,2
-                   order by 2;''')
+rows = run_query('''SELECT * FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard;''')
                   
 df=pd.DataFrame(rows)
 df.columns += 1
@@ -87,19 +75,19 @@ with st.sidebar:
 if lead_source_filter == "ALL":
     # Execute the SQL query to get data for all lead sources
     query_all_lead_sources = '''
-                       select lead_created_date, sum(total_leads), sum(verifiedleads) , sum(convertedleads), 
-                       NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Opp, 
-                       sum(fundedleads), NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Funded,
-                       NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(convertedleads), 0)  AS Opp_to_Funded,
-                       sum(cost),
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(total_leads), 0)  AS CPLead,
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(verifiedleads), 0)  AS CPVerifiedLeads,
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
-                       from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
-                       ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK') 
-                       group by 1
-                       order by 1;
+                        SELECT LEAD_CREATED_DATE,
+                        TOTAL_LEADS,
+                        VERIFIEDLEADS,
+                        TOTAL_OPPS,
+                        LEAD_TO_OPP,
+                        TOTAL_FUNDED,
+                        LEAD_TO_FUNDED,
+                        OPP_TO_FUNDED,
+                        TOTAL_SPEND,
+                        CPLEAD,
+                        CPVERIFIEDLEADS,
+                        CPOPP,
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard;
                        '''
     rows_all_lead_sources = run_query(query_all_lead_sources)
     filtered_df = pd.DataFrame(rows_all_lead_sources)
@@ -109,20 +97,20 @@ if lead_source_filter == "ALL":
                      (filtered_df["Lead Created Date"] <= end_date)]
     #filtered_df = filtered_df.drop(columns=["Lead source"])
     query_all_lead_sources2 = '''
-                       select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' WHEN LEAD_SOURCE='SPRINGGOOGLEBRANDED' THEN 'GOOGLE BRANDED' ELSE lead_source END AS lead_source, sum(total_leads),  sum(verifiedleads), sum(convertedleads),
-                       NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0) AS Lead_to_Opp, 
-                       sum(fundedleads),NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Funded,
-                       NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(convertedleads), 0)  AS Opp_to_Funded,
-                       sum(cost),
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(total_leads), 0)  AS CPLead,
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(verifiedleads), 0)  AS CPVerifiedLeads,
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
-                       from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
-                       ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK') and lead_created_date BETWEEN %s AND %s
-                       group by 1
-                       order by 2 desc;
-                       '''
+                        SELECT LEAD_SOURCE
+                        TOTAL_LEADS,
+                        VERIFIEDLEADS,
+                        TOTAL_OPPS,
+                        LEAD_TO_OPP,
+                        TOTAL_FUNDED,
+                        LEAD_TO_FUNDED,
+                        OPP_TO_FUNDED,
+                        TOTAL_SPEND,
+                        CPLEAD,
+                        CPVERIFIEDLEADS,
+                        CPOPP,
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard
+                        '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
     filtered_df2 = pd.DataFrame(rows_all_lead_sources2)
@@ -137,19 +125,19 @@ else:
     filtered_df = filtered_df.drop(columns=["Lead source"])
 
     query_all_lead_sources2 = '''
-                       select CASE WHEN lead_source='SPRINGFACEBOOK' THEN 'FACEBOOK' WHEN LEAD_SOURCE='SPRINGGOOGLEBRANDED' THEN 'GOOGLE BRANDED' ELSE lead_source END AS lead_source, sum(total_leads),  sum(verifiedleads), sum(convertedleads),
-                       NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Opp
-                       ,sum(fundedleads),NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(total_leads), 0) AS Lead_to_Funded,
-                       NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(convertedleads), 0)  AS Opp_to_Funded,
-                       sum(cost),
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(total_leads), 0)  AS CPLead,
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(verifiedleads), 0)  AS CPVerifiedLeads,
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
-                       NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
-                       from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_Created_date is not null and lead_source in 
-                       ('SPRINGFACEBOOK', 'FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK') and lead_created_date BETWEEN %s AND %s
-                       group by 1
-                       order by 2 desc;
+                        SELECT LEAD_SOURCE
+                        TOTAL_LEADS,
+                        VERIFIEDLEADS,
+                        TOTAL_OPPS,
+                        LEAD_TO_OPP,
+                        TOTAL_FUNDED,
+                        LEAD_TO_FUNDED,
+                        OPP_TO_FUNDED,
+                        TOTAL_SPEND,
+                        CPLEAD,
+                        CPVERIFIEDLEADS,
+                        CPOPP,
+                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard
                        '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
