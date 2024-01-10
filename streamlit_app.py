@@ -101,7 +101,7 @@ if lead_source_filter == "ALL":
                   from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where TOTAL_LEADS IS NOT NULL AND lead_source in 
                   ('SPRINGFACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK') 
                    group by 1
-                   order by 2 desc;
+                   order by 1;
                        '''
     rows_all_lead_sources = run_query(query_all_lead_sources)
     filtered_df = pd.DataFrame(rows_all_lead_sources)
