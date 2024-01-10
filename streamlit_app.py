@@ -110,7 +110,7 @@ if lead_source_filter == "ALL":
                      (filtered_df["Lead Created Date"] <= end_date)]
     #filtered_df = filtered_df.drop(columns=["Lead source"])
     query_all_lead_sources2 = '''
-                        SELECT LEAD_SOURCE
+                        SELECT LEAD_SOURCE,
                         TOTAL_LEADS,
                         VERIFIEDLEADS,
                         TOTAL_OPPS,
@@ -138,7 +138,7 @@ else:
     filtered_df = filtered_df.drop(columns=["Lead source"])
 
     query_all_lead_sources2 = '''
-                        SELECT LEAD_SOURCE
+                        SELECT LEAD_SOURCE,
                         TOTAL_LEADS,
                         VERIFIEDLEADS,
                         TOTAL_OPPS,
