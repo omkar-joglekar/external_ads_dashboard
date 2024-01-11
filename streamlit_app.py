@@ -110,7 +110,6 @@ if lead_source_filter == "ALL":
     #filtered_df = filtered_df.drop(columns=["Lead source"])
     query_all_lead_sources2 = '''
                         select CASE WHEN lead_source = 'SPRINGFACEBOOK' THEN 'FACEBOOK' 
-                        WHEN lead_source = 'SPRINGGOOGLEBRANDED' THEN 'GOOGLE BRANDED'
                         WHEN lead_source_f is null then lead_source 
                         else lead_source_f END AS lead_source2, sum(total_leads),  sum(verifiedleads)
                        , sum(convertedleads), NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Opp,
@@ -141,7 +140,6 @@ else:
 
     query_all_lead_sources2 = '''
                         select CASE WHEN lead_source = 'SPRINGFACEBOOK' THEN 'FACEBOOK' 
-                        WHEN lead_source = 'SPRINGGOOGLEBRANDED' THEN 'GOOGLE BRANDED'
                         WHEN lead_source_f is null then lead_source 
                         else lead_source_f END AS lead_source2, sum(total_leads),  sum(verifiedleads)
                        , sum(convertedleads), NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Opp,
