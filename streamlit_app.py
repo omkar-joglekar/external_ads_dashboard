@@ -7,7 +7,7 @@ import pytz
 import datetime as dt
 import numpy as np
 from datetime import datetime
-from datetime import timedelta
+#from datetime import timedelta
 from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(layout="wide")
@@ -77,8 +77,8 @@ with st.sidebar:
             # Get the first day of the current month
             default_start_date = dt.datetime.today().replace(day=1)
 
-            # Get yesterday's date
-            default_end_date = dt.datetime.today() - timedelta(days=1)
+            # Get today's date
+            default_end_date = dt.datetime.today()
 
             # Display the date inputs with default values
             start_date = st.date_input("Select Start Date:", value=default_start_date)
