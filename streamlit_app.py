@@ -93,7 +93,7 @@ if lead_source_filter == "ALL":
                         VERIFIEDLEADS,
                         TOTAL_OPPS,
                         LEAD_TO_OPP,
-                        TOTAL_FUNDED),
+                        TOTAL_FUNDED,
                         LEAD_TO_FUNDED,
                         OPP_TO_FUNDED,
                         TOTAL_SPEND,
