@@ -109,19 +109,21 @@ if lead_source_filter == "ALL":
                      (filtered_df["Lead Created Date"] <= end_date)]
     #filtered_df = filtered_df.drop(columns=["Lead source"])
     query_all_lead_sources2 = '''
-                        SELECT LEAD_SOURCE,
-                        TOTAL_LEADS,
-                        VERIFIEDLEADS,
-                        TOTAL_OPPS,
-                        LEAD_TO_OPP,
-                        TOTAL_FUNDED,
-                        LEAD_TO_FUNDED,
-                        OPP_TO_FUNDED,
-                        TOTAL_SPEND,
-                        CPLEAD,
-                        CPVERIFIEDLEADS,
-                        CPOPP,
-                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard WHERE LEAD_CREATED_DATE BETWEEN %s AND %s  ORDER BY 2 DESC;
+                        select CASE WHEN lead_source = 'SPRINGFACEBOOK' THEN 'FACEBOOK' 
+                    WHEN lead_source_f is null then lead_source 
+                    else lead_source_f END AS lead_source2, sum(total_leads),  sum(verifiedleads)
+                   , sum(convertedleads), NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Opp,
+                   sum(fundedleads),NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Funded
+                   ,NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(convertedleads), 0)  AS Opp_to_Funded,
+                   sum(cost),
+                   NULLIF(SUM(cost), 0) / NULLIF(SUM(total_leads), 0)  AS CPLead,
+                   NULLIF(SUM(cost), 0) / NULLIF(SUM(verifiedleads), 0)  AS CPVerifiedLeads,
+                   NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
+                   NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
+                  from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where TOTAL_LEADS IS NOT NULL AND lead_source2 in 
+                  ('SPRINGFACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK') and lead_created_date BETWEEN %s AND %s
+                   group by 1
+                   order by 2 desc;
                         '''
     params = (start_date, end_date)
     rows_all_lead_sources2 = run_query(query_all_lead_sources2, params)
