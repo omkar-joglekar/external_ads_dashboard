@@ -31,7 +31,7 @@ def run_query(query, params=None):
         return cur.fetchall()
 
 
-tabs = st.sidebar.radio("Select Tab:", ["Ads Dashboard", "Another Tab"])
+tabs = st.sidebar.radio("Select:", ["Ads Dashboard", "Another Table"])
 
 # Check the selected tab and display content accordingly
 if tabs == "Ads Dashboard":
