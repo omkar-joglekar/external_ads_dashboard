@@ -31,10 +31,10 @@ def run_query(query, params=None):
         return cur.fetchall()
 
 
-tabs = st.sidebar.radio("Select:", ["Ads Dashboard", ""])
+#tabs = st.sidebar.radio("Select:", ["Ads Dashboard", ""])
 
 # Check the selected tab and display content accordingly
-if tabs == "Ads Dashboard":
+#if tabs == "Ads Dashboard":
     # ... (rest of your Ads Dashboard code)
                                                                 #Queries
                                                 rows = run_query('''SELECT lead_source,
@@ -280,7 +280,7 @@ if tabs == "Ads Dashboard":
                                                       </style>
                                                       '''
                                                 st.markdown(css, unsafe_allow_html=True)
-elif tabs == "Another Tab":
+#elif tabs == "Another Tab":
                                     # Add another query and table for the new tab
-                                    st.subheader("Table for Another Tab")    
+                                    #st.subheader("Table for Another Tab")    
 
