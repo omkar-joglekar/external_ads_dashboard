@@ -121,7 +121,7 @@ if lead_source_filter == "ALL":
                        NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
                        NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
                       from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD1 where lead_source2 in 
-                      ('FACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK') and DATE_2 BETWEEN %s AND %s
+                      ('FACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK','YOUTUBE') and DATE_2 BETWEEN %s AND %s
                        group by 1
                        order by 2 desc;
                         '''
@@ -151,7 +151,7 @@ else:
                        NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
                        NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
                       from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD1 where lead_source2 in 
-                      ('FACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK') and DATE_2 BETWEEN %s AND %s
+                      ('FACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK', 'YOUTUBE') and DATE_2 BETWEEN %s AND %s
                        group by 1
                        order by 2 desc;
                            '''
