@@ -45,7 +45,7 @@ rows = run_query(
         CPLEAD,
         CPVERIFIEDLEADS,
         CPOPP,
-        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard ORDER BY 2;''')
+        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_dashboard_table ORDER BY 2;''')
 df=pd.DataFrame(rows)
 df.columns += 1
 df.columns = ["Lead source","Lead Created Date","Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %", "Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CP Verified Leads", "CPOpps", "CPFunded"]
@@ -110,7 +110,7 @@ if tabs == "Ads Dashboard":
                                                                         CPLEAD,
                                                                         CPVERIFIEDLEADS,
                                                                         CPOPP,
-                                                                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_DASHBOARD_ALL ORDER BY 1;'''
+                                                                        CPFUNDED FROM CD_ANALYTICS_TESTDB.OMKAR.Streamlit_Ads_DASHBOARD_TABLE_ALL ORDER BY 1;'''
                                                     rows_all_lead_sources = run_query(query_all_lead_sources)
                                                     filtered_df = pd.DataFrame(rows_all_lead_sources)
                                                     filtered_df.columns += 1
@@ -130,7 +130,7 @@ if tabs == "Ads Dashboard":
                                                                        NULLIF(SUM(cost), 0) / NULLIF(SUM(verifiedleads), 0)  AS CPVerifiedLeads,
                                                                        NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
                                                                        NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
-                                                                      from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD1 where lead_source2 in 
+                                                                      from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD1_TABLE where lead_source2 in 
                                                                       ('FACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK','YOUTUBE','BING') and DATE_2 BETWEEN %s AND %s
                                                                        group by 1
                                                                        order by 2 desc;
@@ -160,7 +160,7 @@ if tabs == "Ads Dashboard":
                                                                        NULLIF(SUM(cost), 0) / NULLIF(SUM(verifiedleads), 0)  AS CPVerifiedLeads,
                                                                        NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
                                                                        NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
-                                                                      from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD1 where lead_source2 in 
+                                                                      from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD1_TABLE where lead_source2 in 
                                                                       ('FACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK','YOUTUBE','BING') and DATE_2 BETWEEN %s AND %s
                                                                        group by 1
                                                                        order by 2 desc;
@@ -304,7 +304,7 @@ elif tabs == "Individual Ad Breakdown":
                                                             NULLIF(SUM(cost), 0) / NULLIF(SUM(verifiedleads), 0)  AS CPVerifiedLeads,
                                                             NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
                                                             NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
-                                                            from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD where lead_source2 in 
+                                                            from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD_TABLE where lead_source2 in 
                                                             ('FACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK','YOUTUBE','BING')
                                                             group by 1,2,3
                                                             order by 1,2;''')
