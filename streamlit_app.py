@@ -50,7 +50,7 @@ df=pd.DataFrame(rows)
 df.columns += 1
 df.columns = ["Lead source","Lead Created Date","Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %", "Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CP Verified Leads", "CPOpps", "CPFunded"]
 
-tabs = st.sidebar.radio("Select:", ["Ads Dashboard", "Individual Ad Breakdown"])
+tabs = st.sidebar.radio("Select:", ["Ads Dashboard", "Individual Ad Breakdown","Ad Group Breakdown"])
 with st.sidebar:
                    st.write("Filters")
                    lead_source_options = list(sorted(df["Lead source"].unique())) + ["ALL"] 
@@ -425,3 +425,147 @@ elif tabs == "Individual Ad Breakdown":
                                                 st.table(formatted_df_AID)    
                                                 st.markdown(hide_table_row_index, unsafe_allow_html=True)
                                         
+elif tabs == "Ad Group Breakdown":
+                                  html_str = f"""
+                                  <h1 style='text-align: center; color: white;'>Ad Group Breakdown</h1>
+                                                """
+                                  st.markdown(html_str, unsafe_allow_html=True)
+                                  rows_SUBID = run_query('''select   case when date_f is null then lead_created_date else date_f end as date_2,
+                                                            CASE   WHEN lead_source = 'SPRINGFACEBOOK' THEN 'FACEBOOK' 
+                                                            WHEN lead_source_f is null then lead_source 
+                                                            else lead_source_f END AS lead_source2, 
+                                                            SUB_ID, sum(total_leads),  sum(verifiedleads)
+                                                            , sum(convertedleads), NULLIF(SUM(convertedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Opp,
+                                                            sum(fundedleads),NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(total_leads), 0)  AS Lead_to_Funded
+                                                            ,NULLIF(SUM(fundedleads), 0) / NULLIF(SUM(convertedleads), 0)  AS Opp_to_Funded,
+                                                            sum(cost),
+                                                            NULLIF(SUM(cost), 0) / NULLIF(SUM(total_leads), 0)  AS CPLead,
+                                                            NULLIF(SUM(cost), 0) / NULLIF(SUM(verifiedleads), 0)  AS CPVerifiedLeads,
+                                                            NULLIF(SUM(cost), 0) / NULLIF(SUM(convertedleads), 0)  AS CPOpp,
+                                                            NULLIF(SUM(cost), 0) / NULLIF(SUM(fundedleads), 0)  AS CPFunded
+                                                            from CD_ANALYTICS_TESTDB.OMKAR.SPRING_ADS_DASHBOARD_SUB_ID_TABLE where lead_source2 in 
+                                                            ('FACEBOOK','FACEBOOKSPRING','GOOGLE', 'SPRINGGOOGLEBRANDED', 'GOOGLEPMAX', 'TIKTOK','YOUTUBE','BING')
+                                                            group by 1,2,3
+                                                            order by 1,2;''')
+                                  selected_lead_source = "All Lead Sources" if lead_source_filter == "ALL" else lead_source_filter
+                                                         
+                                  if lead_source_filter == "ALL":
+                                                    
+                                                    filtered_df_SUBID=pd.DataFrame(rows_SUBID)
+                                                    filtered_df_SUBID.columns += 1
+                                                    filtered_df_SUBID.columns = ["Lead Created Date","Lead source","SUB ID","Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %", "Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CP Verified Leads", "CPOpps", "CPFunded"]
+                                                    filtered_df_SUBID = filtered_df_SUBID[(filtered_df_SUBID["Lead Created Date"] >= start_date) & 
+                                                                                     (filtered_df_SUBID["Lead Created Date"] <= end_date)]
+                                                    filtered_df_SUBID = filtered_df_SUBID.drop(columns=["Lead source"])
+                                                    filtered_df_SUBID["Lead Created Date"] = pd.to_datetime(filtered_df_SUBID["Lead Created Date"]).dt.strftime('%b %e, %Y')
+                                                    
+                                                    grand_totals = pd.DataFrame({
+                                                    "Lead Created Date": ["Grand Total"],
+                                                    "Lead source": [""],
+                                                    "SUB ID":[""],    
+                                                    "Total Leads": filtered_df_SUBID["Total Leads"].sum(),
+                                                    "Verified Leads": filtered_df_SUBID["Verified Leads"].sum(),
+                                                    "Total Opps": filtered_df_SUBID["Total Opps"].sum(),
+                                                    "Lead to Opp %": filtered_df_SUBID["Total Opps"].sum() / filtered_df_SUBID["Total Leads"].sum(),
+                                                    "Total Funded": filtered_df_SUBID["Total Funded"].sum(),
+                                                    "Lead to Funded %": filtered_df_SUBID["Total Funded"].sum() / filtered_df_SUBID["Total Leads"].sum(),
+                                                    "Opp to Funded %": filtered_df_SUBID["Total Funded"].sum() / filtered_df_SUBID["Total Opps"].sum(),
+                                                    "Total Spend": filtered_df_SUBID["Total Spend"].sum(),
+                                                    "CPLead": filtered_df_SUBID["Total Spend"].sum() / filtered_df_SUBID["Total Leads"].sum(),
+                                                    "CP Verified Leads": filtered_df_SUBID["Total Spend"].sum() / filtered_df_SUBID["Verified Leads"].sum(),
+                                                    "CPOpps": filtered_df_SUBID["Total Spend"].sum() / filtered_df_SUBID["Total Opps"].sum(),
+                                                    "CPFunded": filtered_df_SUBID["Total Spend"].sum() / filtered_df_SUBID["Total Funded"].sum(),
+                                                    })
+
+                                                    filtered_df_SUBID = pd.concat([filtered_df_SUBID, grand_totals], ignore_index=True)
+                                                    filtered_df_SUBID["Total Leads"] = filtered_df_SUBID["Total Leads"].fillna(0)
+                                                    filtered_df_SUBID["Verified Leads"] = filtered_df_SUBID["Verified Leads"].fillna(0)
+                                                    filtered_df_SUBID["Total Opps"] = filtered_df_SUBID["Total Opps"].fillna(0)
+                                                    filtered_df_SUBID["Lead to Opp %"] = filtered_df_SUBID["Lead to Opp %"].fillna(0)    
+                                                    filtered_df_SUBID["Total Funded"] = filtered_df_SUBID["Total Funded"].fillna(0)
+                                                    filtered_df_SUBID["Lead to Funded %"] = filtered_df_SUBID["Lead to Funded %"].fillna(0)
+                                                    filtered_df_SUBID["Opp to Funded %"] = filtered_df_SUBID["Opp to Funded %"].fillna(0)
+                                                    filtered_df_SUBID["Total Spend"] = filtered_df_SUBID["Total Spend"].fillna(0)            
+                                                    filtered_df_SUBID["CPLead"] = filtered_df_SUBID["CPLead"].fillna(0)
+                                                    filtered_df_SUBID["CP Verified Leads"] = filtered_df_SUBID["CP Verified Leads"].fillna(0)
+                                                    filtered_df_SUBID["CPOpps"] = filtered_df_SUBID["CPOpps"].fillna(0)
+                                                    filtered_df_SUBID["CPFunded"] = filtered_df_SUBID["CPFunded"].fillna(0)
+                                                          
+                                                    formatted_df_SUBID = filtered_df_SUBID.style.format({
+                                                                        "Total Leads": "{:,.0f}",
+                                                                        "Verified Leads": "{:,.0f}",
+                                                                        "Total Opps": "{:,.0f}",
+                                                                        "Lead to Opp %": '{:,.2%}',
+                                                                        "Total Funded": "{:,.0f}",
+                                                                        "Lead to Funded %": '{:,.2%}',
+                                                                        "Opp to Funded %": '{:,.2%}',
+                                                                        "Total Spend": "${:,.2f}",
+                                                                        "CPLead": "${:,.2f}",
+                                                                        "CP Verified Leads": "${:,.2f}",
+                                                                        "CPOpps": "${:,.2f}",
+                                                                        "CPFunded": "${:,.2f}"
+                                                                    })
+                                                    st.subheader(f"Lead Source: {selected_lead_source}")
+                                                    st.table(formatted_df_SUBID)    
+                                                    st.markdown(hide_table_row_index, unsafe_allow_html=True)
+                                        
+                                  else:
+                                                # Filter the existing DataFrame based on the date range and selected Lead source
+                                                filtered_df_SUBID=pd.DataFrame(rows_SUBID)
+                                                filtered_df_SUBID.columns += 1
+                                                filtered_df_SUBID.columns = ["Lead Created Date","Lead source","SUB ID","Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %", "Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CP Verified Leads", "CPOpps", "CPFunded"]
+                                                filtered_df_SUBID = filtered_df_SUBID[(filtered_df_SUBID["Lead source"] == lead_source_filter) & 
+                                                                (filtered_df_SUBID["Lead Created Date"] >= start_date) & 
+                                                                (filtered_df_SUBID["Lead Created Date"] <= end_date)]
+                                                filtered_df_SUBID = filtered_df_SUBID.drop(columns=["Lead source"])
+                                                filtered_df_SUBID["Lead Created Date"] = pd.to_datetime(filtered_df_SUBID["Lead Created Date"]).dt.strftime('%b %e, %Y')
+
+                                                grand_totals = pd.DataFrame({
+                                                    "Lead Created Date": ["Grand Total"],
+                                                    #"Lead source": [""],
+                                                    "SUB ID":[""],
+                                                    "Total Leads": filtered_df_SUBID["Total Leads"].sum(),
+                                                    "Verified Leads": filtered_df_SUBID["Verified Leads"].sum(),
+                                                    "Total Opps": filtered_df_SUBID["Total Opps"].sum(),
+                                                    "Lead to Opp %": filtered_df_SUBID["Total Opps"].sum() / filtered_df_SUBID["Total Leads"].sum(),
+                                                    "Total Funded": filtered_df_SUBID["Total Funded"].sum(),
+                                                    "Lead to Funded %": filtered_df_SUBID["Total Funded"].sum() / filtered_df_SUBID["Total Leads"].sum(),
+                                                    "Opp to Funded %": filtered_df_SUBID["Total Funded"].sum() / filtered_df_SUBID["Total Opps"].sum(),
+                                                    "Total Spend": filtered_df_SUBID["Total Spend"].sum(),
+                                                    "CPLead": filtered_df_SUBID["Total Spend"].sum() / filtered_df_SUBID["Total Leads"].sum(),
+                                                    "CP Verified Leads": filtered_df_SUBID["Total Spend"].sum() / filtered_df_SUBID["Verified Leads"].sum(),
+                                                    "CPOpps": filtered_df_SUBID["Total Spend"].sum() / filtered_df_SUBID["Total Opps"].sum(),
+                                                    "CPFunded": filtered_df_SUBID["Total Spend"].sum() / filtered_df_SUBID["Total Funded"].sum(),
+                                                    })
+                                                
+                                                filtered_df_SUBID = pd.concat([filtered_df_SUBID, grand_totals], ignore_index=True)
+                                                filtered_df_SUBID["Total Leads"] = filtered_df_SUBID["Total Leads"].fillna(0)
+                                                filtered_df_SUBID["Verified Leads"] = filtered_df_SUBID["Verified Leads"].fillna(0)
+                                                filtered_df_SUBID["Total Opps"] = filtered_df_SUBID["Total Opps"].fillna(0)
+                                                filtered_df_SUBID["Lead to Opp %"] = filtered_df_SUBID["Lead to Opp %"].fillna(0)    
+                                                filtered_df_SUBID["Total Funded"] = filtered_df_SUBID["Total Funded"].fillna(0)
+                                                filtered_df_SUBID["Lead to Funded %"] = filtered_df_SUBID["Lead to Funded %"].fillna(0)
+                                                filtered_df_SUBID["Opp to Funded %"] = filtered_df_SUBID["Opp to Funded %"].fillna(0)
+                                                filtered_df_SUBID["Total Spend"] = filtered_df_SUBID["Total Spend"].fillna(0)            
+                                                filtered_df_SUBID["CPLead"] = filtered_df_SUBID["CPLead"].fillna(0)
+                                                filtered_df_SUBID["CP Verified Leads"] = filtered_df_SUBID["CP Verified Leads"].fillna(0)
+                                                filtered_df_SUBID["CPOpps"] = filtered_df_SUBID["CPOpps"].fillna(0)
+                                                filtered_df_SUBID["CPFunded"] = filtered_df_SUBID["CPFunded"].fillna(0)
+                                                
+                                                formatted_df_SUBID = filtered_df_SUBID.style.format({
+                                                            "Total Leads": "{:,.0f}",
+                                                            "Verified Leads": "{:,.0f}",
+                                                            "Total Opps": "{:,.0f}",
+                                                            "Lead to Opp %": '{:,.2%}',
+                                                            "Total Funded": "{:,.0f}",
+                                                            "Lead to Funded %": '{:,.2%}',
+                                                            "Opp to Funded %": '{:,.2%}',
+                                                            "Total Spend": "${:,.2f}",
+                                                            "CPLead": "${:,.2f}",
+                                                            "CP Verified Leads": "${:,.2f}",
+                                                            "CPOpps": "${:,.2f}",
+                                                            "CPFunded": "${:,.2f}"
+                                                        })
+                                                st.subheader(f"Lead Source: {selected_lead_source}")
+                                                st.table(formatted_df_SUBID)    
+                                                st.markdown(hide_table_row_index, unsafe_allow_html=True)      
