@@ -456,7 +456,7 @@ elif tabs == "Ad Group Breakdown":
                                                     filtered_df_SUBID.columns = ["Lead Created Date","Lead source","SUB ID","Total Leads", "Verified Leads", "Total Opps", "Lead to Opp %", "Total Funded", "Lead to Funded %","Opp to Funded %","Total Spend", "CPLead", "CP Verified Leads", "CPOpps", "CPFunded"]
                                                     filtered_df_SUBID = filtered_df_SUBID[(filtered_df_SUBID["Lead Created Date"] >= start_date) & 
                                                                                      (filtered_df_SUBID["Lead Created Date"] <= end_date)]
-                                                    filtered_df_SUBID = filtered_df_SUBID.drop(columns=["Lead source"])
+                                                    #filtered_df_SUBID = filtered_df_SUBID.drop(columns=["Lead source"])
                                                     filtered_df_SUBID["Lead Created Date"] = pd.to_datetime(filtered_df_SUBID["Lead Created Date"]).dt.strftime('%b %e, %Y')
                                                     
                                                     grand_totals = pd.DataFrame({
@@ -517,7 +517,7 @@ elif tabs == "Ad Group Breakdown":
                                                 filtered_df_SUBID = filtered_df_SUBID[(filtered_df_SUBID["Lead source"] == lead_source_filter) & 
                                                                 (filtered_df_SUBID["Lead Created Date"] >= start_date) & 
                                                                 (filtered_df_SUBID["Lead Created Date"] <= end_date)]
-                                                filtered_df_SUBID = filtered_df_SUBID.drop(columns=["Lead source"])
+                                                #filtered_df_SUBID = filtered_df_SUBID.drop(columns=["Lead source"])
                                                 filtered_df_SUBID["Lead Created Date"] = pd.to_datetime(filtered_df_SUBID["Lead Created Date"]).dt.strftime('%b %e, %Y')
 
                                                 grand_totals = pd.DataFrame({
