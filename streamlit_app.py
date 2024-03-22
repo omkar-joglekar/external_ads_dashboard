@@ -522,7 +522,7 @@ elif tabs == "Ad Group Breakdown":
 
                                                 grand_totals = pd.DataFrame({
                                                     "Lead Created Date": ["Grand Total"],
-                                                    #"Lead source": [""],
+                                                    "Lead source": [""],
                                                     "SUB ID":[""],
                                                     "Total Leads": filtered_df_SUBID["Total Leads"].sum(),
                                                     "Verified Leads": filtered_df_SUBID["Verified Leads"].sum(),
